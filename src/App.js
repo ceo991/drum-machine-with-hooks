@@ -6,6 +6,7 @@ function App() {
 
   const [keyCode, setKeyCode] = useState("")
   const [time, setTime] = useState(300)
+  const [isPressed, setIsPressed] = useState(false)
 
   useEffect(()=>{
     document.addEventListener('keydown', handleKeyDown);
@@ -16,6 +17,7 @@ function App() {
 },[keyCode])
 
   const handleKeyDown = (e)=>{
+    setIsPressed(true)
     if(e.keyCode === 81){
       setKeyCode("Heater-1")
       document.getElementById("Q").currentTime = 0
@@ -66,6 +68,7 @@ function App() {
   }
 
   const handleClick = (kCode,audioId)=>{
+    setIsPressed(true)
     setKeyCode(kCode)  
     document.getElementById(audioId).currentTime = 0
     document.getElementById(audioId).play()
@@ -75,12 +78,17 @@ function App() {
   const clearKeyCode = ()=>{
     setTimeout(()=>{
       setKeyCode("")
+      setIsPressed(false)
     },time)
   }
 
   return (
     <div className="App">
-      <DrumMachine handleClick={handleClick} keyCode={keyCode}/>
+      <DrumMachine 
+        handleClick={handleClick} 
+        keyCode={keyCode}
+        isPressed={isPressed}
+      />
     </div>
   );
 }
