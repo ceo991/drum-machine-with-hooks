@@ -62,15 +62,17 @@ function App() {
       document.getElementById("C").play()
       
     }
-    setTimeout(()=>{
-      setKeyCode("")
-    },time)
+    clearKeyCode()
   }
 
   const handleClick = (kCode,audioId)=>{
     setKeyCode(kCode)  
     document.getElementById(audioId).currentTime = 0
     document.getElementById(audioId).play()
+    clearKeyCode()
+  }
+
+  const clearKeyCode = ()=>{
     setTimeout(()=>{
       setKeyCode("")
     },time)
