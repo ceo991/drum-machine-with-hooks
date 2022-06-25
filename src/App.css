@@ -36,9 +36,6 @@ body{
 }
 
 .drum-pad:hover{
-  /* background-color:rgb(151, 148, 148) !important; */
-  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 0px, rgba(0, 0, 0, 0.23) 0px 0px 0px;
-  transform: translate(0px,6px); */
   transform: scale(1.05); 
 }
 
