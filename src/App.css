@@ -17,6 +17,7 @@ body{
   min-height: 100vh;
   align-items: center;
   justify-content:center;
+  flex-direction: column;
 }
 
 .drum-pad{
@@ -30,7 +31,7 @@ body{
   justify-content:center;
   background-color:gray;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  transition: all 0.3s;
+  transition: all 0.1s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -94,5 +95,24 @@ body{
   height:50px;
   width:300px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  transition: all 0.3s;
+  transition: all 0.1s;
+}
+
+@media (max-width: 600px) {
+
+  #drum-machine{
+    grid-template-columns: repeat(3, 65px);
+    grid-template-rows: repeat(3, 65px) 50px;
+    gap: 20px;
+  }
+
+  #display{
+    height:37.5px;
+    width:225px;
+  }
+  .drum-pad{
+    height:65px;
+    width:65px;
+  }
+  
 }

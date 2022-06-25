@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import DrumMachine from './components/DrumMachine';
 
@@ -7,6 +7,55 @@ function App() {
   const [keyCode, setKeyCode] = useState("")
   const [time, setTime] = useState(300)
   const [isPressed, setIsPressed] = useState(false)
+  const keyMatches = [
+    {
+      key:81, 
+      keyCode:"Heater-1"
+    },
+    {
+      key:87, 
+      keyCode:"Heater-2"
+    },
+    {
+      key:69, 
+      keyCode:"Heater-3"
+    },
+    {
+      key:65, 
+      keyCode:"Heater-4"
+    },
+    {
+      key:83, 
+      keyCode:"Clap"
+    },
+    {
+      key:68, 
+      keyCode:"Open-HH"
+    },
+    {
+      key:90, 
+      keyCode:"Kick-N-Hat"
+    },
+    {
+      key:88, 
+      keyCode:"Kick"
+    },
+    {
+      key:67, 
+      keyCode:"Closed-HH"
+    },
+]
+const qRef = useRef()
+const wRef = useRef()
+const eRef = useRef()
+const aRef = useRef()
+const sRef = useRef()
+const dRef = useRef()
+const zRef = useRef()
+const xRef = useRef()
+const cRef = useRef()
+
+const refsArr = [qRef, wRef ,eRef ,aRef ,sRef, dRef, zRef, xRef, cRef]
 
   useEffect(()=>{
     document.addEventListener('keydown', handleKeyDown);
@@ -17,54 +66,16 @@ function App() {
 },[keyCode])
 
   const handleKeyDown = (e)=>{
-    setIsPressed(true)
-    if(e.keyCode === 81){
-      setKeyCode("Heater-1")
-      document.getElementById("Q").currentTime = 0
-      document.getElementById("Q").play()
-
-    }else if(e.keyCode === 87){
-      setKeyCode("Heater-2")
-      document.getElementById("W").currentTime = 0
-      document.getElementById("W").play()
-   
-    } else if(e.keyCode === 69){
-      setKeyCode("Heater-3")
-      document.getElementById("E").currentTime = 0
-      document.getElementById("E").play()
-     
-    } else if(e.keyCode === 65){
-      setKeyCode("Heater-4")
-      document.getElementById("A").currentTime = 0
-      document.getElementById("A").play()
-   
-    } else if(e.keyCode === 83){
-      setKeyCode("Clap")
-      document.getElementById("S").currentTime = 0
-      document.getElementById("S").play()
-     
-    } else if(e.keyCode === 68){
-      setKeyCode("Open-HH")
-      document.getElementById("D").currentTime = 0
-      document.getElementById("D").play()
-      
-    } else if(e.keyCode === 90){
-      setKeyCode("Kick-N-Hat")
-      document.getElementById("Z").currentTime = 0
-      document.getElementById("Z").play()
-      
-    } else if(e.keyCode === 88){
-      setKeyCode("Kick")
-      document.getElementById("X").currentTime = 0
-      document.getElementById("X").play()
-      
-    } else if(e.keyCode === 67){
-      setKeyCode("Closed-HH")
-      document.getElementById("C").currentTime = 0
-      document.getElementById("C").play()
-      
+    const keysArr = keyMatches.map(obj => obj.key)
+    const keyCodesArr = keyMatches.map(obj => obj.keyCode)
+    const value = e.keyCode;
+    if(keysArr.includes(value)){
+      setIsPressed(true)
+      setKeyCode(keyCodesArr[keysArr.indexOf(value)]) 
+      refsArr[keysArr.indexOf(value)].current.currentTime = 0
+      refsArr[keysArr.indexOf(value)].current.play()
+      clearKeyCode()
     }
-    clearKeyCode()
   }
 
   const handleClick = (kCode,audioId)=>{
@@ -84,10 +95,12 @@ function App() {
 
   return (
     <div className="App">
+      <h2 style={{textAlign: "center",color:"aliceblue",marginTop: "25px"}}>Drum Machine</h2>
       <DrumMachine 
-        handleClick={handleClick} 
-        keyCode={keyCode}
-        isPressed={isPressed}
+      handleClick={handleClick} 
+      keyCode={keyCode}
+      isPressed={isPressed}
+      refsArr={refsArr}
       />
     </div>
   );
