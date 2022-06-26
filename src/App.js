@@ -79,11 +79,13 @@ const refsArr = [qRef, wRef ,eRef ,aRef ,sRef, dRef, zRef, xRef, cRef]
     }
   }
 
-  const handleClick = (kCode,audioId)=>{
+  const handleClick = (audioId)=>{
+    const keysArr = keyMatches.map(obj => obj.key)
+    const keyCodesArr = keyMatches.map(obj => obj.keyCode)
     setIsPressed(true)
-    setKeyCode(kCode)  
-    document.getElementById(audioId).currentTime = 0
-    document.getElementById(audioId).play()
+    setKeyCode(keyCodesArr[keysArr.indexOf(audioId.charCodeAt(0))]) 
+    refsArr[keysArr.indexOf(audioId.charCodeAt(0))].current.currentTime = 0
+    refsArr[keysArr.indexOf(audioId.charCodeAt(0))].current.play()
     clearKeyCode()
   }
 
